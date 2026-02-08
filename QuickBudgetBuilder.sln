@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36127.28 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBudgetBuilder.API", "QuickBudgetBuilder.API\QuickBudgetBuilder.API.csproj", "{BF48E825-5063-4DC6-96F5-1E926FD4529B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBudgetBuilder", "QuickBudgetBuilder\QuickBudgetBuilder.csproj", "{ABB77966-C597-4258-B89B-1D441E25C73D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF48E825-5063-4DC6-96F5-1E926FD4529B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF48E825-5063-4DC6-96F5-1E926FD4529B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF48E825-5063-4DC6-96F5-1E926FD4529B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF48E825-5063-4DC6-96F5-1E926FD4529B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB77966-C597-4258-B89B-1D441E25C73D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB77966-C597-4258-B89B-1D441E25C73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB77966-C597-4258-B89B-1D441E25C73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB77966-C597-4258-B89B-1D441E25C73D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {65CBC65E-D33E-4AD5-B560-88607A9E62ED}
+		SolutionGuid = {5EDF1D54-49E9-404E-8904-A35EC2CC3D96}
 	EndGlobalSection
 EndGlobal

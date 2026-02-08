@@ -1,0 +1,6 @@
+@QuickBudgetBuilder_HostAddress = http://localhost:5262
+
+GET {{QuickBudgetBuilder_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
