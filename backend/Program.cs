@@ -14,6 +14,15 @@ namespace QuickBudgetBuilder
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("DevCors", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -31,6 +40,7 @@ namespace QuickBudgetBuilder
 
             app.UseAuthorization();
 
+            app.UseCors("DevCors");
 
             app.MapControllers();
 
