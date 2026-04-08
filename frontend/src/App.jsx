@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function App() {
   const [monthlyIncome, setMonthlyIncome] = useState("");
@@ -45,6 +49,38 @@ export default function App() {
     }
   }
 
+  function handleExport() {
+  const rows = [
+    ["Category", "Amount"],
+    ["Housing", result.housing],
+    ["Utilities", result.utilities],
+    ["Groceries", result.groceries],
+    ["Eating Out", result.eatingOut],
+    ["Transportation", result.transportation],
+    ["Health", result.health],
+    ["Insurance", result.insurance],
+    ["Savings", result.savings],
+    ["Entertainment", result.entertainment],
+    ["Personal Spending", result.personalSpending],
+    ["Childcare", result.childcare],
+    ["Miscellaneous", result.miscellaneous],
+    ["Remaining", result.remaining],
+    ["Investments / Extra Savings", result.investments],
+    ["Budget Deficit", result.debt],
+  ];
+
+  const csvContent = rows.map(r => r.join(",")).join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "budget.csv";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
   return (
     <div
       style={{
@@ -72,7 +108,7 @@ export default function App() {
         </div>
 
         <div>
-          <label>Rent</label>
+          <label>Housing Costs (Rent/Mortgage)</label>
           <input
             type="number"
             value={rent}
@@ -157,6 +193,66 @@ export default function App() {
       {result && (
         <div style={{ marginTop: "20px" }}>
           <h2>Suggested Budget</h2>
+          <button onClick={handleExport} style={{ padding: "8px 16px", marginBottom: "12px" }}>
+            Export to CSV
+          </button>
+          <Pie
+            data={{
+              labels: [
+                "Housing",
+                "Utilities",
+                "Groceries",
+                "Eating Out",
+                "Transportation",
+                "Health",
+                "Insurance",
+                "Savings",
+                "Entertainment",
+                "Personal Spending",
+                "Childcare",
+                "Miscellaneous",
+              ],
+              datasets: [
+                {
+                  data: [
+                    result.housing,
+                    result.utilities,
+                    result.groceries,
+                    result.eatingOut,
+                    result.transportation,
+                    result.health,
+                    result.insurance,
+                    result.savings,
+                    result.entertainment,
+                    result.personalSpending,
+                    result.childcare,
+                    result.miscellaneous,
+                  ],
+                  backgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#4BC0C0",
+                    "#9966FF",
+                    "#FF9F40",
+                    "#E7E9ED",
+                    "#76D7C4",
+                    "#F1948A",
+                    "#85C1E9",
+                    "#F8C471",
+                    "#ABEBC6",
+                  ],
+                },
+              ],
+            }}
+            options={{
+              plugins: {
+                legend: {
+                  position: "bottom",
+                },
+              },
+            }}
+          />
           <p
             style={{
               color: result.housingOverBudget ? "red" : "black",

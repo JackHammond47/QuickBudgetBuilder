@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.VisualBasic;
 using QuickBudgetBuilder.Models;
 using QuickBudgetBuilder.Services;
-
 
 namespace QuickBudgetBuilder.Controllers
 {
@@ -13,10 +10,11 @@ namespace QuickBudgetBuilder.Controllers
     {
         private readonly BudgetCalculator _calculator;
 
-        public BudgetController()
+        public BudgetController(BudgetCalculator calculator)
         {
-            _calculator = new BudgetCalculator();
+            _calculator = calculator;
         }
+
         [HttpPost("calculate")]
         public IActionResult CalculateBudget([FromBody] BudgetInput input)
         {

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using QuickBudgetBuilder.Services;
 
 
 namespace QuickBudgetBuilder
@@ -25,6 +26,9 @@ namespace QuickBudgetBuilder
             });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            var csvPath = Path.Combine(AppContext.BaseDirectory, "Data", "fy2025_safmrs.csv");
+            builder.Services.AddSingleton(new HudSafmrService(csvPath));
+            builder.Services.AddSingleton<BudgetCalculator>();
 
 
             var app = builder.Build();

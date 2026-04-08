@@ -4,15 +4,16 @@ namespace QuickBudgetBuilder.Services
 {
     public class BudgetCalculator
     {
+        private readonly HudSafmrService _hudService;
+
+        public BudgetCalculator(HudSafmrService hudService)
+        {
+            _hudService = hudService;
+        }
+
         public BudgetResult Calculate(BudgetInput input)
         {
-            decimal zipMultiplier = input.ZipCode switch
-            {
-                "85281" => 1.10m,
-                "85001" => 1.05m,
-                "10001" => 1.30m,
-                _ => 1.00m
-            };
+            decimal zipMultiplier = _hudService.GetMultiplier(input.ZipCode);
 
             decimal lifestyleMultiplier = input.Lifestyle?.ToLower() switch
             {
@@ -68,6 +69,7 @@ namespace QuickBudgetBuilder.Services
             decimal investments = remaining > 0 ? remaining : 0m;
             decimal debt = remaining < 0 ? Math.Abs(remaining) : 0m;
 
+
             return new BudgetResult
             {
                 Housing = Math.Round(housing, 2),
@@ -90,6 +92,9 @@ namespace QuickBudgetBuilder.Services
                 Disclaimers = new List<string>
                 {
                     "Housing is evaluated against a recommended 25% of monthly income, but your entered value is not modified.",
+                    input.ZipCode != null && _hudService.GetRent(input.ZipCode) > 0
+                    ? $"Based on data from the U.S. Department of Housing and Urban Development (HUD), the fair market rent for a 2-bedroom apartment for ZIP code {input.ZipCode} is ${_hudService.GetRent(input.ZipCode):N0}."
+                    : "No HUD fair market rent data was found for your ZIP code.",
                     "Insurance estimates use national averages for car insurance and workplace health plans only.",
                     "Childcare estimates are simplified and may vary widely by age, location, and provider.",
                     "ZIP code adjustments use a simplified cost-of-living multiplier for selected areas.",
